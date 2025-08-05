@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
+import { PostsModule } from './posts/posts.module';
 import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
@@ -13,6 +14,7 @@ import { FirebaseModule } from './firebase/firebase.module';
     }),
     FirebaseModule,
     UserModule,
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
