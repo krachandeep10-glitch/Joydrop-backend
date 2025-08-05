@@ -1,6 +1,6 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import * as admin from 'firebase-admin';
-import { ConfigService } from '../config/configuration';
+import { Injectable, OnModuleInit } from "@nestjs/common";
+import * as admin from "firebase-admin";
+import { ConfigService } from "../config/configuration";
 
 @Injectable()
 export class FirebaseAdminService implements OnModuleInit {
@@ -16,10 +16,11 @@ export class FirebaseAdminService implements OnModuleInit {
       if (!admin.apps.length) {
         const serviceAccount = this.configService.firebaseServiceAccount;
 
-        console.log('🔥 Firebase Configuration:');
-        console.log('   Project ID:', serviceAccount.projectId);
-        console.log('   Client Email:', serviceAccount.clientEmail);
-        console.log('   Private Key:', serviceAccount.privateKey ? 'Present' : 'Missing');
+        console.log("🔥 Firebase Configuration:");
+        console.log(
+          "   Private Key:",
+          serviceAccount.privateKey ? "Present" : "Missing",
+        );
 
         admin.initializeApp({
           credential: admin.credential.cert({
@@ -35,36 +36,42 @@ export class FirebaseAdminService implements OnModuleInit {
         this._storage = admin.storage();
         this.isInitialized = true;
 
-        console.log('✅ Firebase Admin initialized successfully');
+        console.log("✅ Firebase Admin initialized successfully");
       }
     } catch (error) {
-      console.error('❌ Firebase initialization failed:', error);
-      console.warn('⚠️  Continuing without Firebase - some features may not work');
+      console.error("❌ Firebase initialization failed:", error);
+      console.warn(
+        "⚠️  Continuing without Firebase - some features may not work",
+      );
     }
   }
 
   getAuth(): admin.auth.Auth {
     if (!this.isInitialized || !this._auth) {
-      throw new Error('Firebase not initialized. Please provide valid credentials.');
+      throw new Error(
+        "Firebase not initialized. Please provide valid credentials.",
+      );
     }
     return this._auth;
   }
 
   getFirestore(): admin.firestore.Firestore {
     if (!this.isInitialized || !this._firestore) {
-      throw new Error('Firebase not initialized. Please provide valid credentials.');
+      throw new Error(
+        "Firebase not initialized. Please provide valid credentials.",
+      );
     }
     return this._firestore;
   }
 
   getStorage(): admin.storage.Storage {
     if (!this.isInitialized || !this._storage) {
-      throw new Error('Firebase not initialized. Please provide valid credentials.');
+      throw new Error(
+        "Firebase not initialized. Please provide valid credentials.",
+      );
     }
     return this._storage;
   }
-
-
 
   getStorageBucket(): string {
     return this.configService.firebaseStorageBucket;

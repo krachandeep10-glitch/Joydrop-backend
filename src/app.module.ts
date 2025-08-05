@@ -4,7 +4,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { FirebaseModule } from './firebase/firebase.module';
-import { FirestoreSetupController } from './firebase/firestore-setup.controller';
 
 @Module({
   imports: [
@@ -15,7 +14,7 @@ import { FirestoreSetupController } from './firebase/firestore-setup.controller'
     FirebaseModule,
     UserModule,
   ],
-  controllers: [AppController, FirestoreSetupController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

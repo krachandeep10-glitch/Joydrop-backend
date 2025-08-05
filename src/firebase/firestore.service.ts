@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { FirebaseAdminService } from './firebase-admin.service';
-import * as admin from 'firebase-admin';
+import { Injectable } from "@nestjs/common";
+import { FirebaseAdminService } from "./firebase-admin.service";
+import * as admin from "firebase-admin";
 
 @Injectable()
 export class FirestoreService {
@@ -70,11 +70,15 @@ export class FirestoreService {
     }
   }
 
-  async findOne<T>(collection: string, field: string, value: any): Promise<T | null> {
+  async findOne<T>(
+    collection: string,
+    field: string,
+    value: any,
+  ): Promise<T | null> {
     try {
       const snapshot = await this.firestore
         .collection(collection)
-        .where(field, '==', value)
+        .where(field, "==", value)
         .limit(1)
         .get();
 
@@ -95,9 +99,13 @@ export class FirestoreService {
 
   async findMany<T>(
     collection: string,
-    filters?: { field: string; operator: admin.firestore.WhereFilterOp; value: any }[],
+    filters?: {
+      field: string;
+      operator: admin.firestore.WhereFilterOp;
+      value: any;
+    }[],
     limit?: number,
-    orderBy?: { field: string; direction: 'asc' | 'desc' },
+    orderBy?: { field: string; direction: "asc" | "desc" },
   ): Promise<T[]> {
     try {
       let query: admin.firestore.Query = this.firestore.collection(collection);
@@ -131,7 +139,11 @@ export class FirestoreService {
     }
   }
 
-  async update<T>(collection: string, id: string, data: Partial<T>): Promise<void> {
+  async update<T>(
+    collection: string,
+    id: string,
+    data: Partial<T>,
+  ): Promise<void> {
     try {
       const docRef = this.firestore.collection(collection).doc(id);
 
@@ -170,23 +182,27 @@ export class FirestoreService {
     bio?: string;
     joydropReason?: string;
   }) {
-    return this.create('users', userData, userData.uid);
+    return this.create("users", userData, userData.uid);
+  }
+
+  async findUserByUsername(username: string) {
+    return this.findOne("users", "username", username);
   }
 
   async findUserByEmail(email: string) {
-    return this.findOne('users', 'email', email);
+    return this.findOne("users", "email", email);
   }
 
   async findUserById(uid: string) {
-    return this.findById('users', uid);
+    return this.findById("users", uid);
   }
 
   async updateUser(uid: string, userData: any) {
-    return this.update('users', uid, userData);
+    return this.update("users", uid, userData);
   }
 
   async deleteUser(uid: string) {
-    return this.delete('users', uid);
+    return this.delete("users", uid);
   }
 
   // Collection references for advanced queries
