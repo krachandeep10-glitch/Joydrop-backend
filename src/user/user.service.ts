@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { FirebaseAdminService } from "../firebase/firebase-admin.service";
 import { FirestoreService } from "../firebase/firestore.service";
 import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Injectable()
 export class UserService {
@@ -237,7 +238,7 @@ export class UserService {
     }
   }
 
-  async updateUser(uid: string, updateData: Partial<CreateUserDto>) {
+  async updateUser(uid: string, updateData: Partial<UpdateUserDto>) {
     try {
       // Update Firebase Auth user
       const updateRequest: any = {};

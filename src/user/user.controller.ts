@@ -17,6 +17,7 @@ import {
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { FirebaseAuthGuard } from "../firebase/firebase-auth.guard";
+import { UpdateUserDto } from "./dto/update-user.dto";
 
 @ApiTags("Users")
 @Controller("users")
@@ -80,7 +81,7 @@ export class UserController {
   @ApiResponse({ status: 404, description: "User not found" })
   async updateUser(
     @Param("uid") uid: string,
-    @Body() updateData: Partial<CreateUserDto>,
+    @Body() updateData: Partial<UpdateUserDto>,
   ) {
     return this.userService.updateUser(uid, updateData);
   }
