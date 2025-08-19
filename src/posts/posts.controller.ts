@@ -33,7 +33,8 @@ export class PostsController {
   @ApiBearerAuth("JWT-auth")
   @ApiOperation({
     summary: "Send a Joydrop",
-    description: "Create a new joydrop post. Can be public or sent to a specific user.",
+    description:
+      "Create a new joydrop post. Can be public or sent to a specific user.",
   })
   @ApiResponse({ status: 201, description: "Joydrop sent successfully" })
   @ApiResponse({ status: 400, description: "Invalid input data" })
@@ -48,7 +49,8 @@ export class PostsController {
   @ApiBearerAuth("JWT-auth")
   @ApiOperation({
     summary: "Get posts feed",
-    description: "Retrieve posts from the feed. Can filter by user or get public posts.",
+    description:
+      "Retrieve posts from the feed. Can filter by user or get public posts.",
   })
   @ApiQuery({
     name: "userID",
