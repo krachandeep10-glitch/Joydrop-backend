@@ -142,3 +142,4 @@ vite.config.ts.timestamp-*
 *.e2e-spec.ts
 *.spec.ts
 *.md
+.env

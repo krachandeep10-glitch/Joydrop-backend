@@ -13,6 +13,7 @@ export class UserService {
 
   async createUser(createUserDto: CreateUserDto) {
     try {
+      console.log("itt hitttt");
       const {
         email,
         displayName,

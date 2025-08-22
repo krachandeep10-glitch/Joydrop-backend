@@ -4,6 +4,7 @@ import {
   IsString,
   IsOptional,
   IsAlphanumeric,
+  IsBoolean,
 } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
@@ -76,4 +77,14 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   referredBy?: string;
+
+  @ApiProperty({
+    description: "Flag to check if user is logging in for the first time",
+    example: true,
+    required: false,
+    default: true,
+  })
+  @IsBoolean()
+  @IsOptional()
+  isFirstLogin?: boolean = true;
 }
