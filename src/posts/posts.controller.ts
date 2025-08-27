@@ -28,7 +28,7 @@ import { FirebaseAuthGuard } from "../firebase/firebase-auth.guard";
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Post()
+  @Post("create")
   @UseGuards(FirebaseAuthGuard)
   @ApiBearerAuth("JWT-auth")
   @ApiOperation({

@@ -107,7 +107,7 @@ export class PostsService {
 
       // Enrich posts with user data (batch operation for efficiency)
       const enrichedPosts = await this.enrichPostsWithUserData(posts);
-
+  
       return {
         statusCode: 200,
         status: "success",

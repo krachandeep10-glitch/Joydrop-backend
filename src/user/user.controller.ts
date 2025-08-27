@@ -70,6 +70,7 @@ export class UserController {
   @ApiResponse({ status: 200, description: "User found successfully" })
   @ApiResponse({ status: 404, description: "User not found" })
   async findUserByUsername(@Param("username") username: string) {
+    console.log(username);
     return this.userService.findUserByUsername(username);
   }
 
