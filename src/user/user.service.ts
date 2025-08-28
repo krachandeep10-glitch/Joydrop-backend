@@ -203,38 +203,35 @@ export class UserService {
 
   async findUserByUsername(username: string) {
     try {
-      const firestoreUser =
-        await this.firestoreService.findUserByUsername(username);
+      const firestoreUsers =
+        await this.firestoreService.findUsersByUsername(username);
 
-      if (!firestoreUser) {
+      if (!firestoreUsers || firestoreUsers.length === 0) {
         return {
           statusCode: 404,
           status: "error",
           message: "User not found",
-          data: {},
+          data: [],
         };
       }
 
-      // Get Firebase Auth user data using the UID from Firestore
-      const userRecord = await this.firebaseAdmin
-        .getAuth()
-        .getUser((firestoreUser as { uid: string }).uid);
+      const users = await Promise.all(
+        firestoreUsers.map(async (user: any) => {
+          const userRecord = await this.firebaseAdmin
+            .getAuth()
+            .getUser(user.uid);
+          return { ...userRecord, ...user };
+        }),
+      );
 
-      return {
-        statusCode: 200,
-        status: "success",
-        data: {
-          ...userRecord,
-          ...firestoreUser,
-        },
-      };
+      return { statusCode: 200, status: "success", data: users };
     } catch (error) {
       console.log(error);
       return {
-        statusCode: 404,
+        statusCode: 500,
         status: "error",
-        message: "User not found",
-        data: {},
+        message: "Something went wrong",
+        data: [],
       };
     }
   }

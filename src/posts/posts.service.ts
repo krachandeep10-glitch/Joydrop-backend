@@ -432,7 +432,7 @@ export class PostsService {
 
     return posts.map(post => ({
       ...post,
-      sender: userDataMap.get(post.senderID) || null,
+      sender: post.senderID ? userDataMap.get(post.senderID) || post.senderID : post.senderID,
       receiver: post.receiverID ? userDataMap.get(post.receiverID) || null : null,
     }));
   }

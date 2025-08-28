@@ -185,8 +185,15 @@ export class FirestoreService {
     return this.create("users", userData, userData.uid);
   }
 
-  async findUserByUsername(username: string) {
-    return this.findOne("users", "username", username);
+  async findUsersByUsername(username: string) {
+    const snapshot = await this.firestore
+      .collection("users")
+      .orderBy("username")
+      .startAt(username)
+      .endAt(username + "\uf8ff")
+      .get();
+
+    return snapshot.empty ? [] : snapshot.docs.map((doc) => doc.data());
   }
 
   async findUserByEmail(email: string) {
